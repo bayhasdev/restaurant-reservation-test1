@@ -1,0 +1,80 @@
+<section id="menu" class="min-h-screen">
+
+    <!-- Fixed Menu Navigation -->
+    <div class="sticky top-16 lg:top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+            <div class="min-h-16 flex items-center gap-3">
+
+                <!-- Back Button -->
+                <button
+                    id="menu-back-button"
+                    type="button"
+                    class="hidden shrink-0 w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition items-center justify-center"
+                    aria-label="رجوع"
+                >
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+
+                <!-- Breadcrumb -->
+                <div
+                    id="menu-breadcrumb"
+                    class="flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm"
+                >
+                    <!-- Breadcrumb injected by JavaScript -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Menu Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Categories -->
+        <div
+            id="menu-categories"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
+            <!-- Categories injected by JavaScript -->
+        </div>
+
+
+        <!-- Products -->
+        <div
+            id="menu-products"
+            class="hidden grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"
+        >
+            <!-- Products injected by JavaScript -->
+        </div>
+
+
+        <!-- Empty State -->
+        <div
+            id="menu-empty"
+            class="hidden py-20 text-center"
+        >
+
+            <div class="w-20 h-20 mx-auto rounded-full bg-gray-100 flex items-center justify-center mb-5">
+                <i class="fa-solid fa-utensils text-2xl text-gray-400"></i>
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800">
+                لا يوجد أصناف
+            </h3>
+
+            <p class="text-gray-500 mt-2">
+                لا توجد أصناف ضمن هذا القسم حالياً.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+```

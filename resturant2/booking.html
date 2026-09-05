@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>حجز طاولة | الأربع نواعير</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body class="bg-stone-50 text-gray-800">
+
+
+    <!-- Mobile Header -->
+    <header class="lg:hidden fixed top-0 right-0 left-0 z-50 bg-white border-b border-gray-200">
+
+        <div class="h-16 px-4 flex items-center justify-between">
+
+            <button
+                id="open-sidebar"
+                type="button"
+                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+
+            <div class="text-center">
+
+                <h1 class="font-bold text-lg">
+                    حجز طاولة
+                </h1>
+
+                <p class="text-xs text-gray-500">
+                    الأربع نواعير
+                </p>
+
+            </div>
+
+
+            <a
+                href="index.html"
+                class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100"
+            >
+                <i class="fa-solid fa-house"></i>
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- Overlay -->
+    <div
+        id="sidebar-overlay"
+        class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"
+    ></div>
+
+
+    <!-- Sidebar -->
+    <aside
+        id="sidebar"
+        class="fixed top-0 right-0 bottom-0 z-50 w-72 bg-white border-l border-gray-200 transform translate-x-full lg:translate-x-0 transition-transform duration-300 flex flex-col"
+    >
+
+        <div class="p-6 border-b border-gray-200">
+
+            <div class="flex items-center justify-between">
+
+                <div>
+
+                    <h1 class="text-2xl font-black text-gray-900">
+                        الأربع نواعير
+                    </h1>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        مطعم ومقهى
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="close-sidebar"
+                    type="button"
+                    class="lg:hidden w-10 h-10 rounded-xl bg-gray-100"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4">
+
+            <div class="space-y-2">
+
+                <a
+                    href="index.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                >
+                    <i class="fa-solid fa-house w-5"></i>
+                    <span>الرئيسية</span>
+                </a>
+
+
+                <a
+                    href="index.html#menu"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 transition"
+                >
+                    <i class="fa-solid fa-utensils w-5"></i>
+                    <span>القائمة</span>
+                </a>
+
+
+                <a
+                    href="booking.html"
+                    class="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-50 text-amber-700 font-semibold"
+                >
+                    <i class="fa-solid fa-calendar-check w-5"></i>
+                    <span>حجز طاولة</span>
+                </a>
+
+            </div>
+
+        </nav>
+
+
+        <!-- Social -->
+        <div class="p-5 border-t border-gray-200">
+
+            <p class="text-xs text-gray-500 text-center mb-4">
+                تابعنا على
+            </p>
+
+            <div class="flex items-center justify-center gap-3">
+
+                <a
+                    href="#"
+                    class="social-link"
+                    aria-label="WhatsApp"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+
+                <a
+                    href="#"
+                    class="social-link"
+                    aria-label="Facebook"
+                >
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a
+                    href="#"
+                    class="social-link"
+                    aria-label="Instagram"
+                >
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- Main -->
+    <main class="lg:mr-72 pt-16 lg:pt-0 min-h-screen">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+            <!-- Header -->
+            <div class="mb-8">
+
+                <p class="text-sm text-amber-600 font-semibold mb-2">
+                    الأربع نواعير
+                </p>
+
+                <h2 class="text-3xl sm:text-4xl font-black text-gray-900">
+                    حجز طاولة
+                </h2>
+
+                <p class="text-gray-500 mt-2">
+                    اختر التاريخ والوقت ثم اختر الطاولة المناسبة لك
+                </p>
+
+            </div>
+
+
+            <!-- Date / Time -->
+            <div class="bg-white rounded-3xl border border-gray-200 p-5 sm:p-6 mb-6">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+                    <div>
+
+                        <label
+                            for="booking-date"
+                            class="block text-sm font-semibold text-gray-700 mb-2"
+                        >
+                            التاريخ
+                        </label>
+
+                        <input
+                            id="booking-date"
+                            type="date"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label
+                            for="booking-time"
+                            class="block text-sm font-semibold text-gray-700 mb-2"
+                        >
+                            الوقت
+                        </label>
+
+                        <input
+                            id="booking-time"
+                            type="time"
+                            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="mt-5 p-4 rounded-2xl bg-amber-50 text-amber-800 text-sm">
+
+                    <i class="fa-solid fa-circle-info ml-2"></i>
+
+                    يجب اختيار التاريخ والوقت قبل اختيار الطاولة.
+
+                </div>
+
+            </div>
+
+
+            <!-- Legend -->
+            <div class="flex flex-wrap items-center gap-5 mb-5">
+
+                <div class="flex items-center gap-2">
+
+                    <span class="w-4 h-4 rounded-full bg-green-500"></span>
+
+                    <span class="text-sm text-gray-600">
+                        متاحة
+                    </span>
+
+                </div>
+
+
+                <div class="flex items-center gap-2">
+
+                    <span class="w-4 h-4 rounded-full bg-red-500"></span>
+
+                    <span class="text-sm text-gray-600">
+                        محجوزة
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Floor Plan -->
+            <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
+
+                <div class="p-5 border-b border-gray-200">
+
+                    <h3 class="font-bold text-lg">
+                        مخطط المطعم
+                    </h3>
+
+                    <p class="text-sm text-gray-500 mt-1">
+                        اضغط على الطاولة المتاحة لحجزها
+                    </p>
+
+                </div>
+
+
+                <div class="floor-plan-wrapper">
+
+                    <div
+                        id="floor-plan"
+                        class="floor-plan"
+                    >
+                        <!-- Tables rendered by JavaScript -->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Booking Modal -->
+    <div
+        id="booking-modal"
+        class="fixed inset-0 z-[100] hidden"
+    >
+
+        <div
+            id="booking-modal-overlay"
+            class="absolute inset-0 bg-black/60"
+        ></div>
+
+
+        <div class="relative min-h-screen flex items-center justify-center p-4">
+
+            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg">
+
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+
+                    <div>
+
+                        <h3 class="text-xl font-black">
+                            حجز الطاولة
+                        </h3>
+
+                        <p
+                            id="selected-table-text"
+                            class="text-sm text-gray-500 mt-1"
+                        >
+                            طاولة
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        id="close-booking-modal"
+                        type="button"
+                        class="w-10 h-10 rounded-xl bg-gray-100"
+                    >
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                </div>
+
+
+                <form id="booking-form" class="p-6">
+
+                    <div class="space-y-5">
+
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                الاسم
+                            </label>
+
+                            <input
+                                id="customer-name"
+                                type="text"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                placeholder="أدخل اسمك"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                رقم الهاتف
+                            </label>
+
+                            <input
+                                id="customer-phone"
+                                type="tel"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                placeholder="09xxxxxxxx"
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label class="block text-sm font-semibold mb-2">
+                                عدد الأشخاص
+                            </label>
+
+                            <input
+                                id="guest-count"
+                                type="number"
+                                min="1"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                                placeholder="عدد الأشخاص"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="w-full mt-6 py-3.5 rounded-xl bg-gray-900 text-white font-bold hover:bg-amber-600 transition"
+                    >
+                        تأكيد طلب الحجز
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Data -->
+    <script src="assets/js/data.js"></script>
+
+    <!-- Booking Logic -->
+    <script src="assets/js/booking.js"></script>
+
+</body>
+</html>
