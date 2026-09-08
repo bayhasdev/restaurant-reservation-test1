@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
     <meta charset="UTF-8">
@@ -20,14 +21,21 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
+    <!-- Konva.js -->
+    <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 
 </head>
 
+
 <body class="bg-stone-50 text-gray-800">
 
-
+ <!-- Fixed Background -->
+ <div
+ class="fixed inset-0 -z-10 bg-[url('./assets/images/bg-portal.png')] bg-cover bg-center bg-no-repeat lg:bg-[url('./assets/images/bg-land.png')]"
+></div>
     <!-- Mobile Header -->
     <header class="lg:hidden fixed top-0 right-0 left-0 z-50 bg-white border-b border-gray-200">
 
@@ -37,27 +45,27 @@
                 id="open-sidebar"
                 type="button"
                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100"
+                aria-label="Open sidebar"
             >
                 <i class="fa-solid fa-bars"></i>
             </button>
 
 
             <div class="text-center">
-
-                <h1 class="font-bold text-lg">
-                    حجز طاولة
+                <h1 class="font-bold text-lg text-gray-900">
+                    الأربع نواعير
                 </h1>
 
                 <p class="text-xs text-gray-500">
-                    الأربع نواعير
+                    مطعم ومقهى
                 </p>
-
             </div>
 
 
             <a
                 href="index.html"
                 class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100"
+                aria-label="Home"
             >
                 <i class="fa-solid fa-house"></i>
             </a>
@@ -67,7 +75,7 @@
     </header>
 
 
-    <!-- Overlay -->
+    <!-- Sidebar Overlay -->
     <div
         id="sidebar-overlay"
         class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"
@@ -101,6 +109,7 @@
                     id="close-sidebar"
                     type="button"
                     class="lg:hidden w-10 h-10 rounded-xl bg-gray-100"
+                    aria-label="Close sidebar"
                 >
                     <i class="fa-solid fa-xmark"></i>
                 </button>
@@ -191,74 +200,18 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-            <!-- Header -->
-            <div class="mb-8">
 
-                <p class="text-sm text-amber-600 font-semibold mb-2">
-                    الأربع نواعير
-                </p>
+            <!-- Page Header -->
+            <div class="mb-4">
 
+                 
                 <h2 class="text-3xl sm:text-4xl font-black text-gray-900">
                     حجز طاولة
                 </h2>
 
                 <p class="text-gray-500 mt-2">
-                    اختر التاريخ والوقت ثم اختر الطاولة المناسبة لك
+                    اختر الطاولة المناسبة لك لإتمام الحجز
                 </p>
-
-            </div>
-
-
-            <!-- Date / Time -->
-            <div class="bg-white rounded-3xl border border-gray-200 p-5 sm:p-6 mb-6">
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-                    <div>
-
-                        <label
-                            for="booking-date"
-                            class="block text-sm font-semibold text-gray-700 mb-2"
-                        >
-                            التاريخ
-                        </label>
-
-                        <input
-                            id="booking-date"
-                            type="date"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        >
-
-                    </div>
-
-
-                    <div>
-
-                        <label
-                            for="booking-time"
-                            class="block text-sm font-semibold text-gray-700 mb-2"
-                        >
-                            الوقت
-                        </label>
-
-                        <input
-                            id="booking-time"
-                            type="time"
-                            class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <div class="mt-5 p-4 rounded-2xl bg-amber-50 text-amber-800 text-sm">
-
-                    <i class="fa-solid fa-circle-info ml-2"></i>
-
-                    يجب اختيار التاريخ والوقت قبل اختيار الطاولة.
-
-                </div>
 
             </div>
 
@@ -293,26 +246,71 @@
             <!-- Floor Plan -->
             <div class="bg-white rounded-3xl border border-gray-200 overflow-hidden">
 
+                <!-- Floor Plan Header -->
                 <div class="p-5 border-b border-gray-200">
 
-                    <h3 class="font-bold text-lg">
-                        مخطط المطعم
-                    </h3>
+                    <div class="flex items-center justify-between gap-4">
 
-                    <p class="text-sm text-gray-500 mt-1">
-                        اضغط على الطاولة المتاحة لحجزها
-                    </p>
+                        <div>
+
+                            <h3 class="font-bold text-lg">
+                                مخطط المطعم
+                            </h3>
+
+                            <p class="text-sm text-gray-500 mt-1">
+                                اضغط على الطاولة المتاحة لحجزها
+                            </p>
+
+                        </div>
+
+
+                        <!-- Zoom Controls -->
+                        <div class="flex items-center gap-2 shrink-0">
+
+                            <button
+                                id="zoom-out"
+                                type="button"
+                                class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center"
+                                aria-label="Zoom out"
+                            >
+                                <i class="fa-solid fa-minus"></i>
+                            </button>
+
+
+                            <button
+                                id="zoom-reset"
+                                type="button"
+                                class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center"
+                                aria-label="Reset zoom"
+                            >
+                                <i class="fa-solid fa-expand"></i>
+                            </button>
+
+
+                            <button
+                                id="zoom-in"
+                                type="button"
+                                class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition flex items-center justify-center"
+                                aria-label="Zoom in"
+                            >
+                                <i class="fa-solid fa-plus"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
 
+                <!-- Floor Plan -->
                 <div class="floor-plan-wrapper">
 
                     <div
                         id="floor-plan"
                         class="floor-plan"
                     >
-                        <!-- Tables rendered by JavaScript -->
+                        <!-- Floor plan rendered by JavaScript -->
                     </div>
 
                 </div>
@@ -330,16 +328,20 @@
         class="fixed inset-0 z-[100] hidden"
     >
 
+        <!-- Modal Overlay -->
         <div
             id="booking-modal-overlay"
-            class="absolute inset-0 bg-black/60"
+            class="absolute inset-0 bg-black/60 backdrop-blur-sm"
         ></div>
 
 
+        <!-- Modal Container -->
         <div class="relative min-h-screen flex items-center justify-center p-4">
 
-            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg">
+            <div class="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden">
 
+
+                <!-- Modal Header -->
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
 
                     <div>
@@ -361,7 +363,8 @@
                     <button
                         id="close-booking-modal"
                         type="button"
-                        class="w-10 h-10 rounded-xl bg-gray-100"
+                        class="w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 transition"
+                        aria-label="Close booking modal"
                     >
                         <i class="fa-solid fa-xmark"></i>
                     </button>
@@ -369,13 +372,22 @@
                 </div>
 
 
-                <form id="booking-form" class="p-6">
+                <!-- Booking Form -->
+                <form
+                    id="booking-form"
+                    class="p-6"
+                >
 
                     <div class="space-y-5">
 
+
+                        <!-- Customer Name -->
                         <div>
 
-                            <label class="block text-sm font-semibold mb-2">
+                            <label
+                                for="customer-name"
+                                class="block text-sm font-semibold mb-2"
+                            >
                                 الاسم
                             </label>
 
@@ -383,6 +395,7 @@
                                 id="customer-name"
                                 type="text"
                                 required
+                                autocomplete="name"
                                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
                                 placeholder="أدخل اسمك"
                             >
@@ -390,9 +403,13 @@
                         </div>
 
 
+                        <!-- Customer Phone -->
                         <div>
 
-                            <label class="block text-sm font-semibold mb-2">
+                            <label
+                                for="customer-phone"
+                                class="block text-sm font-semibold mb-2"
+                            >
                                 رقم الهاتف
                             </label>
 
@@ -400,6 +417,7 @@
                                 id="customer-phone"
                                 type="tel"
                                 required
+                                autocomplete="tel"
                                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
                                 placeholder="09xxxxxxxx"
                             >
@@ -407,26 +425,151 @@
                         </div>
 
 
+                        <!-- Booking Date -->
                         <div>
 
-                            <label class="block text-sm font-semibold mb-2">
-                                عدد الأشخاص
+                            <label
+                                for="booking-date"
+                                class="block text-sm font-semibold mb-2"
+                            >
+                                تاريخ الحجز
                             </label>
 
                             <input
-                                id="guest-count"
-                                type="number"
-                                min="1"
+                                id="booking-date"
+                                type="date"
                                 required
                                 class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                                placeholder="عدد الأشخاص"
                             >
+
+                        </div>
+
+
+                        <!-- Booking Time -->
+                        <div>
+
+                            <label
+                                for="booking-time"
+                                class="block text-sm font-semibold mb-2"
+                            >
+                                ساعة الحجز
+                            </label>
+
+                            <select
+                                id="booking-time"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            >
+
+                                <option value="">
+                                    اختر ساعة الحجز
+                                </option>
+
+                                <option value="18:00">
+                                    03:00 مساءً
+                                </option>
+
+                                <option value="18:30">
+                                    04:00 مساءً
+                                </option>
+
+                                <option value="19:00">
+                                    05:00 مساءً
+                                </option>
+
+                                <option value="19:30">
+                                    06:00 مساءً
+                                </option>
+
+                                <option value="20:00">
+                                    07:00 مساءً
+                                </option>
+                                
+                                <option value="20:00">
+                                    08:00 مساءً
+                                </option>
+
+                                <option value="20:30">
+                                    09:00 مساءً
+                                </option>
+
+                                <option value="21:00">
+                                    10:00 مساءً
+                                </option>
+
+                                <option value="21:30">
+                                    11:00 مساءً
+                                </option>
+
+                                <option value="22:00">
+                                    12:00 مساءً
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Guest Count -->
+                        <div>
+
+                            <label
+                                for="guest-count"
+                                class="block text-sm font-semibold mb-2"
+                            >
+                                عدد الأشخاص
+                            </label>
+
+                            <select
+                                id="guest-count"
+                                required
+                                class="w-full px-4 py-3 rounded-xl border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            >
+
+                                <option value="">
+                                    اختر عدد الأشخاص
+                                </option>
+
+                                <option value="1">
+                                    شخص واحد
+                                </option>
+
+                                <option value="2">
+                                    شخصان
+                                </option>
+
+                                <option value="3">
+                                    3 أشخاص
+                                </option>
+
+                                <option value="4">
+                                    4 أشخاص
+                                </option>
+
+                                <option value="5">
+                                    5 أشخاص
+                                </option>
+
+                                <option value="6">
+                                    6 أشخاص
+                                </option>
+
+                                <option value="7">
+                                    7 أشخاص
+                                </option>
+
+                                <option value="8">
+                                    8 أشخاص
+                                </option>
+
+                            </select>
 
                         </div>
 
                     </div>
 
 
+                    <!-- Submit -->
                     <button
                         type="submit"
                         class="w-full mt-6 py-3.5 rounded-xl bg-gray-900 text-white font-bold hover:bg-amber-600 transition"
@@ -445,6 +588,9 @@
 
     <!-- Data -->
     <script src="assets/js/data.js"></script>
+
+    <!-- Floor Plan -->
+    <script src="assets/js/floor-plan.js"></script>
 
     <!-- Booking Logic -->
     <script src="assets/js/booking.js"></script>

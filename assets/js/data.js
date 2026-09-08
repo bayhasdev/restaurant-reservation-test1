@@ -480,30 +480,33 @@ const menuItems = [
 |--------------------------------------------------------------------------
 | Tables
 |--------------------------------------------------------------------------
-| These will be used by the separate booking page.
+| These will be used by the separate booking page. 
+مثلاً x أصغر = تروح لليسار، وy أصغر = تروح لفوق.
+*/ 
+/*
+|--------------------------------------------------------------------------
+| Table Positions
+|--------------------------------------------------------------------------
+|
+| x and y are the exact table positions.
+| The table position is not calculated automatically.
+|
 */
 
 const restaurantTables = [
+
+    // ================================================================
+    // LONG CORRIDOR - LEFT SIDE
+    // ================================================================
 
     {
         id: 1,
         number: 1,
         seats: 2,
-        x: 120,
-        y: 100,
-        width: 100,
-        height: 70,
-        shape: "rectangle"
-    },
-
-    {
-        id: 2,
-        number: 2,
-        seats: 4,
-        x: 300,
-        y: 100,
-        width: 120,
-        height: 80,
+        x: 55,
+        y: 45,
+        width: 85,
+        height: 60,
         shape: "rectangle"
     },
 
@@ -511,21 +514,10 @@ const restaurantTables = [
         id: 3,
         number: 3,
         seats: 4,
-        x: 520,
-        y: 100,
-        width: 120,
-        height: 80,
-        shape: "rectangle"
-    },
-
-    {
-        id: 4,
-        number: 4,
-        seats: 6,
-        x: 180,
-        y: 300,
-        width: 140,
-        height: 90,
+        x: 45,
+        y: 170,
+        width: 100,
+        height: 65,
         shape: "rectangle"
     },
 
@@ -533,21 +525,209 @@ const restaurantTables = [
         id: 5,
         number: 5,
         seats: 4,
-        x: 450,
+        x: 45,
         y: 300,
-        width: 120,
-        height: 80,
+        width: 100,
+        height: 65,
+        shape: "round"
+    },
+
+    {
+        id: 7,
+        number: 7,
+        seats: 4,
+        x: 45,
+        y: 430,
+        width: 100,
+        height: 65,
+        shape: "rectangle"
+    },
+
+    {
+        id: 9,
+        number: 9,
+        seats: 2,
+        x: 55,
+        y: 560,
+        width: 85,
+        height: 60,
+        shape: "rectangle"
+    },
+
+
+    // ================================================================
+    // LONG CORRIDOR - RIGHT SIDE
+    // ================================================================
+
+    {
+        id: 2,
+        number: 2,
+        seats: 2,
+        x: 560,
+        y: 45,
+        width: 85,
+        height: 60,
+        shape: "rectangle"
+    },
+
+    {
+        id: 4,
+        number: 4,
+        seats: 4,
+        x: 555,
+        y: 170,
+        width: 100,
+        height: 65,
         shape: "rectangle"
     },
 
     {
         id: 6,
         number: 6,
-        seats: 2,
-        x: 700,
-        y: 180,
+        seats: 4,
+        x: 555,
+        y: 300,
         width: 100,
+        height: 65,
+        shape: "round"
+    },
+
+    {
+        id: 8,
+        number: 8,
+        seats: 4,
+        x: 555,
+        y: 430,
+        width: 100,
+        height: 65,
+        shape: "rectangle"
+    },
+
+    {
+        id: 10,
+        number: 10,
+        seats: 2,
+        x: 560,
+        y: 560,
+        width: 85,
+        height: 60,
+        shape: "rectangle"
+    },
+
+
+    // ================================================================
+    // WIDE BACK AREA
+    // ================================================================
+
+    {
+        id: 11,
+        number: 11,
+        seats: 4,
+        x: 45,
+        y: 750,
+        width: 110,
         height: 70,
         shape: "rectangle"
+    },
+
+    {
+        id: 12,
+        number: 12,
+        seats: 4,
+        x: 295,
+        y: 750,
+        width: 110,
+        height: 70,
+        shape: "round"
+    },
+
+    {
+        id: 13,
+        number: 13,
+        seats: 4,
+        x: 545,
+        y: 750,
+        width: 110,
+        height: 70,
+        shape: "rectangle"
+    },
+
+
+    {
+        id: 14,
+        number: 14,
+        seats: 4,
+        x: 45,
+        y: 890,
+        width: 110,
+        height: 70,
+        shape: "round"
+    },
+
+    {
+        id: 15,
+        number: 15,
+        seats: 4,
+        x: 295,
+        y: 890,
+        width: 110,
+        height: 70,
+        shape: "rectangle"
+    },
+
+    {
+        id: 16,
+        number: 16,
+        seats: 4,
+        x: 545,
+        y: 890,
+        width: 110,
+        height: 70,
+        shape: "round"
+    },
+
+
+    {
+        id: 17,
+        number: 17,
+        seats: 4,
+        x: 45,
+        y: 1030,
+        width: 110,
+        height: 70,
+        shape: "rectangle"
+    },
+
+    {
+        id: 18,
+        number: 18,
+        seats: 4,
+        x: 225,
+        y: 1030,
+        width: 110,
+        height: 70,
+        shape: "round"
+    },
+
+    {
+        id: 19,
+        number: 19,
+        seats: 4,
+        x: 405,
+        y: 1030,
+        width: 110,
+        height: 70,
+        shape: "rectangle"
+    },
+
+    {
+        id: 20,
+        number: 20,
+        seats: 4,
+        x: 585,
+        y: 1030,
+        width: 110,
+        height: 70,
+        shape: "round"
     }
 ];

@@ -22,138 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initializeBooking() {
 
-    renderTables();
-
     initializeBookingModal();
 
     initializeSidebar();
 
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Render Tables
-|--------------------------------------------------------------------------
-*/
-
-function renderTables() {
-
-    const floorPlan = document.getElementById("floor-plan");
-
-    if (!floorPlan) {
-        return;
-    }
-
-
-    floorPlan.innerHTML = "";
-
-
-    restaurantTables.forEach(table => {
-
-        const tableElement = document.createElement("button");
-
-        tableElement.type = "button";
-
-        tableElement.className = `
-            restaurant-table
-            available
-        `;
-
-
-        tableElement.style.left = `${table.x}px`;
-        tableElement.style.top = `${table.y}px`;
-
-        tableElement.style.width = `${table.width}px`;
-        tableElement.style.height = `${table.height}px`;
-
-
-        tableElement.innerHTML = `
-
-            <div class="table-surface">
-
-                <span class="table-number">
-                    ${table.number}
-                </span>
-
-            </div>
-
-            ${renderChairs(table)}
-
-        `;
-
-
-        tableElement.addEventListener("click", () => {
-
-            selectTable(table);
-
-        });
-
-
-        floorPlan.appendChild(tableElement);
-    });
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| Render Chairs
-|--------------------------------------------------------------------------
-*/
-
-function renderChairs(table) {
-
-    const chairs = [];
-
-
-    const chairCount = table.seats;
-
-
-    for (let i = 0; i < chairCount; i++) {
-
-        let positionClass = "";
-
-
-        if (chairCount === 2) {
-
-            positionClass =
-                i === 0
-                    ? "chair-left"
-                    : "chair-right";
-
-        } else if (chairCount === 4) {
-
-            const positions = [
-                "chair-top",
-                "chair-right",
-                "chair-bottom",
-                "chair-left"
-            ];
-
-            positionClass = positions[i];
-
-        } else {
-
-            const positions = [
-                "chair-top-left",
-                "chair-top-right",
-                "chair-right",
-                "chair-bottom-right",
-                "chair-bottom-left",
-                "chair-left"
-            ];
-
-            positionClass = positions[i];
-        }
-
-
-        chairs.push(`
-            <span class="chair ${positionClass}"></span>
-        `);
-    }
-
-
-    return chairs.join("");
 }
 
 
@@ -165,20 +37,12 @@ function renderChairs(table) {
 
 function selectTable(table) {
 
-    const date = document.getElementById("booking-date");
-    const time = document.getElementById("booking-time");
-
-
-    if (!date.value || !time.value) {
-
-        alert("Please select the date and time first.");
-
+    if (!table) {
         return;
     }
 
 
     selectedTable = table;
-
 
     openBookingModal(table);
 }
@@ -186,14 +50,23 @@ function selectTable(table) {
 
 /*
 |--------------------------------------------------------------------------
-| Open Modal
+| Open Booking Modal
 |--------------------------------------------------------------------------
 */
 
 function openBookingModal(table) {
 
-    const modal = document.getElementById("booking-modal");
-    const tableText = document.getElementById("selected-table-text");
+    const modal =
+        document.getElementById("booking-modal");
+
+    const tableText =
+        document.getElementById("selected-table-text");
+
+    const guestCount =
+        document.getElementById("guest-count");
+
+    const dateInput =
+        document.getElementById("booking-date");
 
 
     if (!modal || !tableText) {
@@ -205,19 +78,106 @@ function openBookingModal(table) {
         `طاولة رقم ${table.number} - ${table.seats} أشخاص`;
 
 
+    /*
+    |--------------------------------------------------------------------------
+    | Set Minimum Booking Date
+    |--------------------------------------------------------------------------
+    */
+
+    if (dateInput) {
+
+        const today =
+            new Date().toISOString().split("T")[0];
+
+        dateInput.min = today;
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Limit Guest Count To Table Capacity
+    |--------------------------------------------------------------------------
+    */
+
+    if (guestCount) {
+
+        guestCount.innerHTML = `
+            <option value="">
+                اختر عدد الأشخاص
+            </option>
+        `;
+
+
+        for (
+            let i = 1;
+            i <= table.seats;
+            i++
+        ) {
+
+            guestCount.innerHTML += `
+                <option value="${i}">
+                    ${getGuestLabel(i)}
+                </option>
+            `;
+        }
+    }
+
+
     modal.classList.remove("hidden");
+
+    document.body.classList.add("overflow-hidden");
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Focus Customer Name
+    |--------------------------------------------------------------------------
+    */
+
+    setTimeout(() => {
+
+        document
+            .getElementById("customer-name")
+            ?.focus();
+
+    }, 100);
 }
 
 
 /*
 |--------------------------------------------------------------------------
-| Close Modal
+| Guest Label
+|--------------------------------------------------------------------------
+*/
+
+function getGuestLabel(count) {
+
+    if (count === 1) {
+        return "شخص واحد";
+    }
+
+    if (count === 2) {
+        return "شخصان";
+    }
+
+    return `${count} أشخاص`;
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Close Booking Modal
 |--------------------------------------------------------------------------
 */
 
 function closeBookingModal() {
 
-    const modal = document.getElementById("booking-modal");
+    const modal =
+        document.getElementById("booking-modal");
+
+    const form =
+        document.getElementById("booking-form");
+
 
     if (!modal) {
         return;
@@ -225,6 +185,14 @@ function closeBookingModal() {
 
 
     modal.classList.add("hidden");
+
+    document.body.classList.remove("overflow-hidden");
+
+
+    if (form) {
+        form.reset();
+    }
+
 
     selectedTable = null;
 }
@@ -248,71 +216,110 @@ function initializeBookingModal() {
         document.getElementById("booking-form");
 
 
-    if (closeButton) {
+    closeButton?.addEventListener(
+        "click",
+        closeBookingModal
+    );
 
-        closeButton.addEventListener(
-            "click",
-            closeBookingModal
-        );
+
+    overlay?.addEventListener(
+        "click",
+        closeBookingModal
+    );
+
+
+    form?.addEventListener(
+        "submit",
+        handleBookingSubmit
+    );
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Handle Booking Submit
+|--------------------------------------------------------------------------
+*/
+
+function handleBookingSubmit(event) {
+
+    event.preventDefault();
+
+
+    if (!selectedTable) {
+        return;
     }
 
 
-    if (overlay) {
+    const bookingData = {
 
-        overlay.addEventListener(
-            "click",
-            closeBookingModal
-        );
+        tableId:
+            selectedTable.id,
+
+        tableNumber:
+            selectedTable.number,
+
+        customerName:
+            document
+                .getElementById("customer-name")
+                .value
+                .trim(),
+
+        customerPhone:
+            document
+                .getElementById("customer-phone")
+                .value
+                .trim(),
+
+        date:
+            document
+                .getElementById("booking-date")
+                .value,
+
+        time:
+            document
+                .getElementById("booking-time")
+                .value,
+
+        guests:
+            document
+                .getElementById("guest-count")
+                .value
+    };
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Validate Booking
+    |--------------------------------------------------------------------------
+    */
+
+    if (
+        !bookingData.customerName ||
+        !bookingData.customerPhone ||
+        !bookingData.date ||
+        !bookingData.time ||
+        !bookingData.guests
+    ) {
+
+        alert("Please complete all booking fields.");
+
+        return;
     }
 
 
-    if (form) {
-
-        form.addEventListener("submit", event => {
-
-            event.preventDefault();
-
-
-            if (!selectedTable) {
-                return;
-            }
+    console.log(
+        "Booking request:",
+        bookingData
+    );
 
 
-            const bookingData = {
-
-                tableId: selectedTable.id,
-
-                tableNumber: selectedTable.number,
-
-                date: document.getElementById("booking-date").value,
-
-                time: document.getElementById("booking-time").value,
-
-                customerName:
-                    document.getElementById("customer-name").value,
-
-                customerPhone:
-                    document.getElementById("customer-phone").value,
-
-                guests:
-                    document.getElementById("guest-count").value
-            };
+    alert(
+        `تم إرسال طلب حجز الطاولة رقم ${selectedTable.number}`
+    );
 
 
-            console.log("Booking request:", bookingData);
-
-
-            alert(
-                `تم إرسال طلب حجز الطاولة رقم ${selectedTable.number}`
-            );
-
-
-            form.reset();
-
-            closeBookingModal();
-
-        });
-    }
+    closeBookingModal();
 }
 
 
@@ -344,40 +351,46 @@ function initializeSidebar() {
 
     function openSidebar() {
 
-        sidebar.classList.remove("translate-x-full");
+        sidebar.classList.remove(
+            "translate-x-full"
+        );
 
-        overlay.classList.remove("hidden");
+        overlay.classList.remove(
+            "hidden"
+        );
 
-        document.body.classList.add("overflow-hidden");
+        document.body.classList.add(
+            "overflow-hidden"
+        );
     }
 
 
     function closeSidebar() {
 
-        sidebar.classList.add("translate-x-full");
+        sidebar.classList.add(
+            "translate-x-full"
+        );
 
-        overlay.classList.add("hidden");
+        overlay.classList.add(
+            "hidden"
+        );
 
-        document.body.classList.remove("overflow-hidden");
-    }
-
-
-    if (openButton) {
-
-        openButton.addEventListener(
-            "click",
-            openSidebar
+        document.body.classList.remove(
+            "overflow-hidden"
         );
     }
 
 
-    if (closeButton) {
+    openButton?.addEventListener(
+        "click",
+        openSidebar
+    );
 
-        closeButton.addEventListener(
-            "click",
-            closeSidebar
-        );
-    }
+
+    closeButton?.addEventListener(
+        "click",
+        closeSidebar
+    );
 
 
     overlay.addEventListener(
@@ -386,12 +399,14 @@ function initializeSidebar() {
     );
 
 
-    document.querySelectorAll("#sidebar a").forEach(link => {
+    document
+        .querySelectorAll("#sidebar a")
+        .forEach(link => {
 
-        link.addEventListener(
-            "click",
-            closeSidebar
-        );
+            link.addEventListener(
+                "click",
+                closeSidebar
+            );
 
-    });
+        });
 }
